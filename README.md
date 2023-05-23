@@ -1,5 +1,5 @@
 # Malleable-CS-Profiles
-A list of python tools to help create an OPSEC-safe Cobalt Strike profile. This is the Github repository of the relevant blog post: [Unleashing the Unseen: Harnessing the Power of Cobalt Strike Profiles for EDR Evasion](https://whiteknightlabs.com/2023/05/19/unleashing-the-unseen-harnessing-the-power-of-cobalt-strike-profiles-for-edr-evasion/)
+A list of python tools to help create an OPSEC-safe Cobalt Strike profile. This is the Github repository of the relevant blog post: [Unleashing the Unseen: Harnessing the Power of Cobalt Strike Profiles for EDR Evasion](https://whiteknightlabs.com/2023/05/23/unleashing-the-unseen-harnessing-the-power-of-cobalt-strike-profiles-for-edr-evasion/)
 
 ## Usage  
 
