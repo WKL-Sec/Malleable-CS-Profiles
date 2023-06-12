@@ -398,6 +398,7 @@ process-inject {
 
 ###Post-Ex Block###
 post-ex {
+    set pipename "Winsock2\\CatalogChangeListener-###-0";
     set spawnto_x86 "%windir%\\syswow64\\wbem\\wmiprvse.exe -Embedding";
     set spawnto_x64 "%windir%\\sysnative\\wbem\\wmiprvse.exe -Embedding";
     set obfuscate "true";

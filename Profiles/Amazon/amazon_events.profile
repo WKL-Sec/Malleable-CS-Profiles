@@ -304,7 +304,7 @@ stage {
     set cleanup	        "true";
     set sleep_mask	"true";
     set stomppe	        "true";
-    set obfuscate	"true";
+    zset obfuscate	"true";
     set rich_header     "";
     
     set sleep_mask "true";
