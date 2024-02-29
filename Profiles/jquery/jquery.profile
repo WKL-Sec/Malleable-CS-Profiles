@@ -3,7 +3,7 @@
 ### Auxiliary Settings ###
 set sample_name "Stigs Random C2 Profile";
 set host_stage "false";  # Host payload for staging over HTTP, HTTPS, or DNS. Required by stagers.
-set useragent "<RAND>"; # "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko/20100101 Firefox/55.0"; Use random Internet Explorer UA by default
+set useragent "<KARTIK>"; # "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko/20100101 Firefox/55.0"; Use random Internet Explorer UA by default
 set create_remote_thread "true"; # Allow beacon to create threads in other processes
 set hijack_remote_thread "true"; # Allow beacon to run jobs by hijacking the primary thread of a suspeneded process
 
