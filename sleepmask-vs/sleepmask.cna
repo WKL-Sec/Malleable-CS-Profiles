@@ -1,0 +1,54 @@
+# ===========================================================================
+#                                  Utils
+# ===========================================================================
+
+# ----------------------------------------------
+# Print information to the Script Console
+# $1 = message
+# ----------------------------------------------
+sub print_info {
+   println(formatDate("[HH:mm:ss] ") . "\cE[SLEEPMASK-VS]\o " . $1);
+}
+
+# ===========================================================================
+#                               Sleep Mask
+# ===========================================================================
+print_info("Sleepmask-VS Loaded");
+set BEACON_SLEEP_MASK {
+   local('$arch $handle $data $data_len $path $sm_bof $sm_bof_len');
+   $arch = $2;   
+
+   # Check the payload architecture.
+   if($arch eq "x64") {
+       $path = getFileProper(script_resource("x64"), "Release" ,"sleepmask.x64.o" );
+   } 
+   else if ($arch eq "x86") {
+       $path = getFileProper(script_resource("Release") ,"sleepmask.x86.o" );
+   }
+   else {
+       warn("Error: Unsupported architecture: $arch");
+       return $null;
+   }
+   
+   $handle = openf($path);
+   $data   = readb($handle, -1);
+   closef($handle);
+   $data_len = strlen($data);
+   print_info("Sleepmask - $path length: $data_len bytes");
+
+   if ($data_len <= 0) {
+      print_info("Sleepmask - Error loading the sleep mask object file - Reverting to using the default sleep mask.");
+      return $null;
+   }
+
+   # Extract the bof using sleep_mask as the entry point
+   $sm_bof = bof_extract($data, "sleep_mask");
+   $sm_bof_len = strlen($sm_bof);
+
+   if ($sm_bof_len <= 0) {
+      println("Sleepmask - Error extracting the sleep mask bof - Reverting to using the default sleep mask.");
+      return $null;
+   }
+
+   return $sm_bof;
+}
