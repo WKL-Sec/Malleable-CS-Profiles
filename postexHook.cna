@@ -1,0 +1,32 @@
+# ===========================================================================
+#                                  Utils
+# ===========================================================================
+
+sub print_info {
+   println(formatDate("[HH:mm:ss] ") . "\cE[UDRL-VS]\o " . $1);
+}
+
+# ===========================================================================
+#                      Post Exploitation DLL Extract
+# ===========================================================================
+
+print_info("Post Exploitation Loader loaded");
+
+set POSTEX_RDLL_GENERATE {
+    local('$dllName $postex $file_handle');
+    
+    $dllName = $1;
+    $postex = $2;
+    
+    # Leave only the DLL name without the folder
+    $dllName = replace($dllName, "resources/", "");
+   
+    print_info("Saving " . $dllName . " to disk...");
+    $file_handle = openf(">" . $dllName);
+    writeb($file_handle, $postex);
+    closef($file_handle);
+    
+    print_info("Done! Payload Size: " . strlen($postex));
+    
+    return $postex;
+}

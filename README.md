@@ -1,5 +1,5 @@
 # Malleable-CS-Profiles
-A list of python tools to help create an OPSEC-safe Cobalt Strike profile. This is the Github repository of the relevant blog post: [Unleashing the Unseen: Harnessing the Power of Cobalt Strike Profiles for EDR Evasion](https://whiteknightlabs.com/2023/05/23/unleashing-the-unseen-harnessing-the-power-of-cobalt-strike-profiles-for-edr-evasion/)
+A list of python tools to help create an OPSEC-safe Cobalt Strike profile. This is the Github repository of the [Part 1](https://whiteknightlabs.com/2023/05/23/unleashing-the-unseen-harnessing-the-power-of-cobalt-strike-profiles-for-edr-evasion/) and [Part 2](https://whiteknightlabs.com/2025/05/08/harnessing-the-power-of-cobalt-strike-profiles-for-edr-evasion/) blogpost.  
 
 ## Usage  
 
@@ -18,8 +18,21 @@ transform-x64 {
 }
 ```
 
-### rich_header.py  
-Is a python script which generates dynamic shellcode that is responsible for the meta-information inserted by the compiler. The Rich header is a PE section that serves as a fingerprint of a Windows' executable’s build environment. To use the script, execute:  
+### dll_parse.py  
+A python script parses the given DLL, in order to generate a ready-to-use Cobalt Strike profile block. This will make the reflected DLL looks like a system DLL. 
+```bash
+python3 dll_parse.py <path/to/dll>
+```
+
+### magic_mz.py  
+A python script which dynamically generates (OPSEC-safe) values for `magic_mz_x64` and `magic_mz_x86` MZ PE header which are not obfuscated as the reflective loading process depends on them. When executed, the script provides a set of 2 (for x64) or 4 (for x86) assembly instructions. The condition for the assembly instructions is that the resultant should be a no operation.
+
+```bash
+python3 magic_mz
+```
+
+### rich_header.py (deprecated)  
+⚠️ Deprecated: A python script which generates dynamic shellcode that is responsible for the meta-information inserted by the compiler. The Rich header is a PE section that serves as a fingerprint of a Windows' executable’s build environment. To use the script, execute:  
 ```bash
 python3 rich_header.py
 ```
@@ -33,8 +46,8 @@ stage {
 }
 ```
 
-### rule_f0b627fc_bypass.py  
-Is a python script which modifies the shellcode in order bypass rule `Windows_Trojan_CobaltStrike_f0b627fc` from Elastic. To use the script, execute:  
+### rule_f0b627fc_bypass.py (deprecated)  
+⚠️ Deprecated: A python script which modifies the shellcode in order bypass rule `Windows_Trojan_CobaltStrike_f0b627fc` from Elastic. To use the script, execute:  
 ```bash
 python3 rule_f0b627fc_bypass.py  beacon_x64.bin
 ```
@@ -43,7 +56,7 @@ Then use the generated beacon as your new shellcode.
 
 ## Profiles  
 
-To use profiles in Cobalt Strike, execute the following command:  
+We are providing three different profile templates under the `Profiles` folder. Each template includes two profiles, one with and without `post-ex` strings. To use profiles in Cobalt Strike, start the teamserver with the following command:  
 ```bash
 bash teamserver <your_ip> <your_password> <path/to/your.profile>
 ```
