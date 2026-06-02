@@ -30,7 +30,7 @@ set ssh_pipename "LOCAL\\cubeb-pipe-####-##";
 ## Beacon Config
 ################################################
 stage {
-    set allocator         "MapViewOfFile";
+    set allocator         "VirtualAlloc";  # DripLoading is only compatible with this allocation method
     set cleanup           "true";
     set rdll_loader       "PrependLoader"; #PrependLoader enable the use of eaf_bypass and rdll_use_syscalls
     set rdll_use_syscalls "true";
@@ -41,6 +41,9 @@ stage {
     set syscall_method    "indirect";
     set copy_pe_header    "true";          # Optional
     #set smartinject       "true";         # bypass EMET: pass key function pointers to its post-exploitation tools, when they're known (Disabled when PrependLoader is used)
+    set rdll_use_driploading "true";       # Version 4.12 Update
+    set rdll_dripload_delay "110";         # Version 4.12 Update
+
     beacon_gate {
         All;
     }
@@ -148,6 +151,8 @@ process-inject {
   set bof_allocator "HeapAlloc";  #Specify VirtualAlloc, MapViewOfFile, or HeapAlloc. 
   set bof_reuse_memory "true";
   set min_alloc "16384";
+  set use_driploading "true";     # CS 4.12 Update
+  set dripload_delay "110";       # CS 4.12 Update
 
   #Use the prepend.py script from WKL github to generate a dynamic prepend value (support x64 only)
   #https://github.com/WKL-Sec/Malleable-CS-Profiles/blob/main/prepend.py
