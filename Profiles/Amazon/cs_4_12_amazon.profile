@@ -43,9 +43,11 @@ stage {
     #set smartinject       "true";         # bypass EMET: pass key function pointers to its post-exploitation tools, when they're known (Disabled when PrependLoader is used)
     set rdll_use_driploading "true";       # Version 4.12 Update
     set rdll_dripload_delay "110";         # Version 4.12 Update
-    beacon_gate {
-        All;
-    }
+    
+    # Enable only if developing a custom Sleep Mask to intercept the Beacon API calls. If enabled, syscalls will be ignored.
+    #beacon_gate {
+    #    All;
+    #}
     
     # OPSEC Note: Use the magic_header python script to generate values (https://github.com/WKL-Sec/Malleable-CS-Profiles/magic_mz.py)
     # For more details about the values, please refer to the official documentation: https://hstechdocs.helpsystems.com/manuals/cobaltstrike/current/userguide/content/topics/malleable-c2-extend_pe-memory-indicators.htm
