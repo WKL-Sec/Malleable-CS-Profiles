@@ -44,7 +44,7 @@ stage {
     set rdll_use_driploading "true";       # Version 4.12 Update
     set rdll_dripload_delay "110";         # Version 4.12 Update
     
-    # Enable only if developing a custom Sleep Mask to intercept the Beacon API calls. If enabled, syscalls will be ignored.
+    # We highly recommend enabling BeaconGate, as it now performs return address spoofing for all proxied BeaconGate calls (including VirtualAlloc). This will eliminate the only disadvantage that VirtualAlloc introduces. This is the perfect setup for Drip Loading.
     #beacon_gate {
     #    All;
     #}
@@ -56,7 +56,6 @@ stage {
     
     set magic_pe        "##";     # Set to random values to avoid signature detections (limited to 2 characters)
     set userwx 	        "false";
-    set sleep_mask	    "true";
     set stomppe	        "true";   # Otherwise easy detection
     set obfuscate	    "true";
     
